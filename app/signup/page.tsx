@@ -2,18 +2,15 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { useRouter } from "next/navigation";
 
-export default function Login() {
+export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] =
     useState("");
 
-  const router = useRouter();
-
-  const login = async () => {
+  const signup = async () => {
     const { error } =
-      await supabase.auth.signInWithPassword({
+      await supabase.auth.signUp({
         email,
         password,
       });
@@ -21,14 +18,14 @@ export default function Login() {
     if (error) {
       alert(error.message);
     } else {
-      router.push("/dashboard");
+      alert("Signup success! Now login.");
     }
   };
 
   return (
     <div className="p-10">
       <h1 className="text-2xl">
-        Login
+        Signup
       </h1>
 
       <input
@@ -51,21 +48,11 @@ export default function Login() {
       />
 
       <button
-        onClick={login}
-        className="bg-blue-500 text-white px-4 py-2"
+        onClick={signup}
+        className="bg-green-500 text-white px-4 py-2"
       >
-        Login
+        Sign Up
       </button>
-
-      <p className="mt-4">
-        No account?{" "}
-        <a
-          href="/signup"
-          className="text-blue-600 underline"
-        >
-          Sign up
-        </a>
-      </p>
     </div>
   );
 }
